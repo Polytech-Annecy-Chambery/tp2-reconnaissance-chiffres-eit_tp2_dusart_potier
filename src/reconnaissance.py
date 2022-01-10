@@ -11,6 +11,12 @@ def lecture_modeles(chemin_dossier):
     return liste_modeles
 
 
-def reconnaissance_chiffre(image, liste_modeles, S):
-    pass
-
+def reconnaissance_chiffre(image,liste_modeles,S):
+    im_bin=image.binarisation(S)
+    im_bin=im_bin.localisation()
+    L=[]
+    for i in liste_modeles:
+        im_bin=im_bin.resize(i.H,i.W)
+        s=im_bin.similitude(i)
+        L.append(s)
+    return L.index(max(L))
